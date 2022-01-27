@@ -1,0 +1,33 @@
+{% extends "base.html" %} {%block title %}Home{% endblock %}
+
+<!--Anything that is put inside this block will show up on the screen if you render base.html -->
+<!--Also allows me to override anything in here-->
+{%block content%}
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+    {%for note in user.notes%}
+    <li class="list-group-item">
+        {{ note.data }}
+        <!--This helps us figure out which note we are deleting
+            and of course, we need to figure out which ID is associated with that particular note
+        -->
+         <!--We will have a function in javascript called deleteNote that will take in a note ID
+            When we press on the close button in "this row(for eg. row 1)" it will send the note ID 
+            associated with this note and we will delete that note from the DB
+        -->
+        <button type="button" class="close" onClick="deleteNote({{note.id}})">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </li>
+    {%endfor%}
+</ul>
+
+<form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <div align="center">
+        <button type="submit" class="btn-primary">Add Note</button>
+    </div>
+</form>
+{%endblock%}
